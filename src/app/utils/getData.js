@@ -20,7 +20,7 @@ export const getGenderData = async (firstName) => {
       `https://api.genderize.io?name=${firstName}`
     );
     let genderData = await genderResponse.json();
-    
+  
     return genderData.gender;
   } catch (error) {
     
@@ -36,9 +36,9 @@ export const getCountryData = async (firstName) => {
       `https://api.nationalize.io?name=${firstName}`
     );
     let nationalityData = await nationalityResponse.json();
-    
+
     if (!nationalityData || nationalityData.country.length == 0) {
-      
+      return ""
     } else {
       return nationalityData.country[0].country_id;
     }

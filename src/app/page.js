@@ -24,20 +24,18 @@ export default function Home() {
     const ageData = await getAgeData(firstName);
     if (ageData !== null) setAge(ageData);
     setLoading(false);
-    
+
     const genderData = await getGenderData(firstName);
     setGender(genderData);
     const countryData = await getCountryData(firstName);
     setCountry(countryData);
-  
+    
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4 md:p-24 text-white bg-gray-800">
-      <div className="w-full md:w-1/2 lg:w-1/3 bg-blue-600 p-4 md:p-8 rounded-xl">
-        <h2 className="text-3xl md:text-5xl text-center font-bold">
-          Guesss...
-        </h2>
+    <main className="flex min-h-screen flex-col items-center p-4 md:p-24 text-white bg-teal-900">
+      <div className="w-full md:w-[450px] bg-blue-600 p-4 md:p-8 rounded-xl">
+        <h2 className="text-3xl md:text-5xl text-center font-bold">BioLens</h2>
         <form
           className="flex flex-col md:flex-row mt-4"
           onSubmit={handleSubmit}
@@ -51,13 +49,14 @@ export default function Home() {
           />
           <button
             type="submit"
-            className="py-2 mt-2 md:mt-0 md:ml-2 px-4 bg-blue-500 hover:bg-blue-600 font-bold rounded md:rounded-r focus:outline-none"
+            className="py-2 mt-2 md:mt-0 md:ml-2 px-4 bg-blue-500 hover:bg-blue-700 font-bold rounded md:rounded-r focus:outline-none"
           >
-            Guess
+            {loading ? <Loader /> : "Guess"}
           </button>
         </form>
-        <div className="mt-8 font-bold">
-          {loading && <Loader />}
+      </div>
+      {(age !== 0 || gender || country) && (
+        <div className="mt-8 font-bold w-full md:w-[450px] bg-blue-600 p-4 md:p-8 rounded-xl">
           {firstName && age !== 0 && (
             <p className="animate-pulse block py-4 px-8 bg-white text-black rounded-lg text-bold">
               <span className="capitalize">{firstName}</span> is {age} years old
@@ -74,7 +73,7 @@ export default function Home() {
             </p>
           )}
         </div>
-      </div>
+      )}
     </main>
   );
 }
